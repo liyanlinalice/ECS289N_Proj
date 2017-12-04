@@ -15,9 +15,10 @@ num_reviews = len(stars)
 num_reviews_for_a_star = num_reviews / 5
 
 reviews_first_100 = []
-REVIEW_NUM = 8000
+REVIEW_NUM = 20000
 REVIEW_LEN_LIMIT = 100
 review_matrix_list = []
+review_word_lens = []
 review_scores = []
 review_selected_list = []
 i_eff_review = 0
@@ -47,6 +48,7 @@ def get_vecs(i):
             not_found = False
             review_selected_list.append(i)
             review_scores.append(stars[i])
+            review_word_lens.append(num_word_in_dic)
             if num_word_in_dic < REVIEW_LEN_LIMIT:  # Padding Zero Vecs
                 empty = []
                 for _ in range(REVIEW_LEN_LIMIT - num_word_in_dic):
@@ -72,3 +74,4 @@ review_scores = np.array(review_scores)
 for i in range(len(review_scores)):
     print(i+1, ' ', review_selected_list[i], ' ', review_scores[i])
 np.save('./review_matrices/review_scores', review_scores)
+np.save('./review_matrices/review_word_lens', review_word_lens)
